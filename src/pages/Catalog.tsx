@@ -201,14 +201,13 @@ const Catalog = () => {
   const [search, setSearch] = useState("");
   const [sort, setSort] = useState("popular");
   const [priceMin, setPriceMin] = useState(500);
-  const [priceMax, setPriceMax] = useState(10000);
   const [orderModal, setOrderModal] = useState<Service | null>(null);
   const [customPrice, setCustomPrice] = useState(500);
 
   const filtered = SERVICES
     .filter((s) => activeCategory === "all" || s.category === activeCategory)
     .filter((s) => s.title.toLowerCase().includes(search.toLowerCase()) || s.description.toLowerCase().includes(search.toLowerCase()))
-    .filter((s) => s.price >= priceMin && s.price <= priceMax)
+    .filter((s) => s.price >= priceMin)
     .sort((a, b) => {
       if (sort === "price_asc") return a.price - b.price;
       if (sort === "price_desc") return b.price - a.price;
@@ -289,32 +288,18 @@ const Catalog = () => {
 
                 <div className="border-t border-gray-100 pt-5">
                   <h3 className="font-montserrat font-bold text-base text-gray-900 mb-4">Ценовой диапазон</h3>
-                  <div className="flex gap-3 mb-4">
-                    <div className="flex-1">
-                      <label className="text-xs text-gray-400 mb-1 block">От, ₽</label>
-                      <input
-                        type="number"
-                        min={500}
-                        max={priceMax}
-                        value={priceMin}
-                        onChange={(e) => setPriceMin(Number(e.target.value))}
-                        className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-orange-400 transition-colors"
-                      />
-                    </div>
-                    <div className="flex-1">
-                      <label className="text-xs text-gray-400 mb-1 block">До, ₽</label>
-                      <input
-                        type="number"
-                        min={priceMin}
-                        max={99999}
-                        value={priceMax}
-                        onChange={(e) => setPriceMax(Number(e.target.value))}
-                        className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-orange-400 transition-colors"
-                      />
-                    </div>
+                  <div className="mb-4">
+                    <label className="text-xs text-gray-400 mb-1 block">От, ₽</label>
+                    <input
+                      type="number"
+                      min={500}
+                      value={priceMin}
+                      onChange={(e) => setPriceMin(Number(e.target.value))}
+                      className="w-full border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-orange-400 transition-colors"
+                    />
                   </div>
                   <button
-                    onClick={() => { setPriceMin(500); setPriceMax(10000); }}
+                    onClick={() => { setPriceMin(500); }}
                     className="text-xs text-orange-500 hover:underline"
                   >
                     Сбросить фильтры
