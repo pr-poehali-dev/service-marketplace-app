@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import Icon from "@/components/ui/icon";
 
 const HERO_IMAGE = "https://cdn.poehali.dev/projects/e4f2bbfb-0d7f-4535-8e96-b1b86288102a/files/b31c4407-682a-4f08-b84c-03090dd122e6.jpg";
@@ -41,6 +42,7 @@ const steps = [
 ];
 
 const Index = () => {
+  const navigate = useNavigate();
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
@@ -59,6 +61,7 @@ const Index = () => {
           </span>
           <div className="hidden md:flex items-center gap-8 text-sm font-medium text-gray-600">
             <a href="#services" className="hover:text-orange-500 transition-colors">Услуги</a>
+            <button onClick={() => navigate("/catalog")} className="hover:text-orange-500 transition-colors">Каталог</button>
             <a href="#how" className="hover:text-orange-500 transition-colors">Как работает</a>
             <a href="#stats" className="hover:text-orange-500 transition-colors">О нас</a>
           </div>
